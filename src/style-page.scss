@@ -1,0 +1,423 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+ @mixin mobile-only {
+  @media (max-width: 640px) {
+    @content;
+  }
+}
+@mixin tablet-up {
+  @media (min-width: 640.1px) {
+    @content;
+  }
+}
+@mixin with-fine-pointer {
+  @media (pointer: fine) {
+    @content;
+  }
+}
+
+.peak-founders-query-loop, 
+.single-founders {
+  --card-photo-height: 25vw;
+  --card-name-height: 1fr;
+  --card-logo-height: calc( var(--wp--preset--font-size--large, 24px) * 4);
+  --card-text-spacing: 20px;
+  --card-columns: 10fr 1fr;
+  --card-rows: var(--card-photo-height) var(--card-name-height) var(--card-logo-height);
+  --toggle-size: clamp(48px, 4.6vw, 64px);
+
+  @media screen and (max-width: 600px) {
+    --card-photo-height: 62vw;
+  }
+  & a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 700;
+  }
+  & p strong {
+    font-size: var(--wp--preset--font-size--x-large);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #FFF;
+    background-color: var(--wp--preset--color--peak-pink, #000);
+    padding: .6em;
+    border-radius: .75em;
+    display: block;
+  }
+  & > ul {
+    position: relative;
+    overflow: hidden;
+  }
+  .founders {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all .5s ease-out;
+    position: relative;
+  }
+  .founders.loaded {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  .founder-block {
+    background-color: var(--wp--preset--color--base, #000);
+    color: var(--wp--preset--color--contrast, #FFF);
+    border-radius: 0 0 0 0;
+    transition: all .2s ease-in-out;
+  }
+  @include with-fine-pointer {
+    &:not(.single-founders) .founder-block:hover {
+      background-color: var(--wp--preset--color--contrast, #FFF);
+      color: var(--wp--preset--color--base, #000);
+      border-radius: 0 0 20px 0;
+    }
+  }
+  .founder-block,
+  .founder-block > .wp-block-group__inner-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--card-columns);
+    grid-template-rows: var(--card-rows);
+    cursor: pointer;
+  }
+  // WordPress changed the markup of the group block, that's why we need to support both variants.
+  .founder-block > .wp-block-group__inner-container {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 3;
+    transition: all .2s ease-in-out;
+  }
+  @include with-fine-pointer {
+    &:not(.single-founders) .founder-block:hover > .wp-block-group__inner-container {
+      background-color: var(--wp--preset--color--contrast);
+      border-radius: 0 0 20px 0;
+    }
+  }
+  // Hide all children except the ones we need.
+  .founder-block > :not(.founder-coin, .founder-toggle, .founder-photograph, .card-title, .card-full-content-title, .wp-block-group__inner-container),
+  .founder-block > .wp-block-group__inner-container > :not(.founder-coin, .founder-toggle, .founder-photograph, .card-title, .card-full-content-title) {
+    display: none;
+  }
+  .founders .wp-block-post-title {
+    display: none;
+  }
+  .founder-block .founder-coin {
+    grid-column: 1 / span 1;
+    grid-row: 3 / span 1;
+    margin: 0;
+    padding: var(--card-text-spacing) 0;
+    
+    & img {
+      width: auto;
+      height: 100%;
+      filter: invert(100%);
+      transition: filter .2s ease-in-out;
+    }
+  }
+  .founder-full-popup .founder-block .founder-coin img {
+    filter: invert(0%);
+  }
+  @include with-fine-pointer {
+    .founder-block:hover .founder-coin img {
+      filter: invert(0%);
+    }
+  }
+  .founder-block .founder-photograph {
+    margin: 0;
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 1;
+  
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  
+    & figcaption {
+      display: none;
+    }
+  }
+  .founder-block .card-title,
+  .founder-block .card-full-content-title {
+    grid-column: 1 / span 2;
+    grid-row: 2 / span 1;
+    font-size: var(--wp--preset--font-size--large, 24px);
+    padding: .4em 0 .8em 0;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    margin: var(--card-text-spacing) 0 0 0;
+  }
+  .founder-block .card-title,
+  .founder-block .card-full-content-title,
+  .founder-block .founder-coin {
+    margin-left: var(--card-text-spacing);
+    margin-right: var(--card-text-spacing);
+    position: relative;
+  
+    &:before {
+      content: '';
+      position: absolute;
+      left: calc( var(--card-text-spacing) * -1);
+      top: 0;
+      height: 100%;
+      width: 1px;
+      border-left: 1px solid var(--wp--preset--color--contrast, #FFF);
+    }
+  }
+  .founder-block .founder-coin:before {
+    top: -1px;
+  }
+  .founder-toggle {
+    background-image: url("data:image/svg+xml,%3Csvg id='Group_302' data-name='Group 302' xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg id='Ellipse_3' data-name='Ellipse 3' fill='none' stroke='%23f0f' stroke-width='2'%3E%3Ccircle cx='32' cy='32' r='32' stroke='none'/%3E%3Ccircle cx='32' cy='32' r='31' fill='none'/%3E%3C/g%3E%3Cline id='Line_1' data-name='Line 1' x2='31.559' transform='translate(16.5 32.5)' fill='none' stroke='%23f0f' stroke-linecap='round' stroke-width='2'/%3E%3Cline id='Line_123' data-name='Line 123' x2='31.559' transform='translate(32.5 16.5) rotate(90)' fill='none' stroke='%23f0f' stroke-linecap='round' stroke-width='2'/%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 48px;
+    width: 48px;
+    grid-row: 3 / span 1;
+    grid-column: 2 / span 1;
+    margin: 0 var(--card-text-spacing) 0 0!important;
+    transform-origin: 50% 50%;
+    transform: rotate(0);
+    transition: transform .2s ease-in-out;
+    cursor: pointer;
+  }
+  @include with-fine-pointer {
+    .founder-block:hover .founder-toggle {
+      transform: rotate(180deg);
+    }
+    .founder-full-popup .founder-block:hover .founder-toggle {
+      transform: rotate(45deg);
+    }
+  }
+  
+  @keyframes founder-in {
+    0% {
+      transform: translateY(100svh);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  @keyframes founder-out {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(100svh);
+    }
+  }
+  & .founder-full-popup.reverse {
+    animation: founder-out .5s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+  }
+  & .founder-full-popup, 
+  & main {
+    --card-columns: 1fr;
+    --card-text-spacing: 15px;
+    transform-origin: 50% 100%;
+    animation: founder-in .5s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+  
+    &.founders {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 0;
+      width: auto!important;
+      z-index: 1000;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      background-color: var(--wp--preset--color--contrast, #FFF);
+      color: var(--wp--preset--color--base, #000);
+      border-radius: 10px 10px 0 0;
+      padding: var(--card-text-spacing);
+    }
+    &:not(main) .founder-block {
+      background-color: var(--wp--preset--color--contrast, #FFF);
+      color: var(--wp--preset--color--base, #000);
+      cursor: default;
+    }
+    & .founder-block > .wp-block-group__inner-container {
+      grid-column: 1 / span 2;
+      grid-row: 1 / span 4;
+      cursor: default;
+    }
+    & .founder-block > :not(.founder-coin, .founder-toggle, .founder-photograph, .card-title, .card-full-content-title, .wp-block-group__inner-container),
+    & .founder-block > .wp-block-group__inner-container > :not(.founder-coin, .founder-toggle, .founder-photograph, .card-title, .card-full-content-title) {
+      display: inherit;
+      grid-column: 1 / span 2;
+    }
+    & .founder-block > .is-layout-flex,
+    & .founder-block > .wp-block-group__inner-container > .is-layout-flex {
+      display: flex;
+    }
+    & .founder-toggle {
+      transform: rotate(45deg);
+      margin-right: 0!important;
+    }
+    & .founder-block .founder-coin,
+    & .founder-block .card-title ,
+    & .founder-block .card-full-content-title {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    & .card-full-content-link-title {
+      font-size: var(--wp--preset--font-size--medium);
+      font-weight: 400;
+  
+      & + p, & + p ~ p {
+        margin-top: 0.4em;
+      }
+    }
+  }
+  
+  
+  @include tablet-up {
+    & .founder-full-popup, 
+    & main {
+      --card-photo-height: 32vw;
+      --card-text-spacing: 20px;
+      --full-popup-photo-width: 40%;
+      position: relative;
+  
+      &:after {
+        position: absolute;
+        content: '';
+        top: var(--card-text-spacing);
+        left: calc( var(--full-popup-photo-width) + var(--card-text-spacing) + 1px );
+        bottom: var(--card-text-spacing);
+        border-right: 1px solid var(--wp--preset--color--base, #000);
+      }
+  
+      & .founder-block,
+      & .founder-block > .wp-block-group__inner-container {
+        display: block;
+  
+        & > :not(.founder-photograph, .founder-coin, .wp-block-group__inner-container) {
+          margin-left: calc( var(--full-popup-photo-width) + var(--card-text-spacing) * 2 );
+        }
+      }
+      & .founder-block .founder-photograph {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: var(--full-popup-photo-width);
+        height: var(--card-photo-height);
+      }
+      & .founder-block .founder-coin {
+        position: absolute;
+        left: 0;
+        top: calc( var(--card-photo-height) + var(--card-text-spacing) );
+  
+        & img {
+          filter: invert(0%);
+          height: 150px;
+          width: auto;
+        }
+      }
+      & .founder-block .card-title,
+      & .founder-block .card-full-content-title {
+        font-size: var(--wp--preset--font-size--x-large);
+        line-height: 1.2;
+        padding: .6em calc(var(--toggle-size) + .5em) .6em 0;
+        margin-top: 0;
+      }
+      & .founder-toggle {
+        position: absolute;
+        top: calc( ( var(--wp--preset--font-size--x-large) * 1.2 + var(--wp--preset--font-size--x-large) * 1.2 ) / 2 - 32px );
+        right: 0;
+        z-index: 10000;
+        height: var(--toggle-size);
+        width: var(--toggle-size);
+        background-size: var(--toggle-size);
+  
+        &:hover {
+          transform: rotate(45deg)!important;
+        }
+      }
+      & .founder-block:hover .founder-toggle {
+        transform: rotate(225deg);
+      }
+    }
+  }
+  .founder-prevnext {
+    clear: both;
+    display: flex;
+    gap: var(--card-text-spacing);
+    justify-content: flex-end;
+    // margin-top: calc( var(--toggle-size) * -1 - var(--card-text-spacing) );
+  }
+  .founder-next, .founder-prev {
+    width: calc( var(--toggle-size) * .75 );
+    height: calc( var(--toggle-size) * .75 );
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34.414 34.645'%3E%3Cg fill='none' stroke='%23ff00ff' stroke-linecap='round' stroke-width='2' data-name='Group 575'%3E%3Cpath d='M1 18.528h31.559' data-name='Line 115'/%3E%3Cpath d='M17.122 1.413 33 18.626 17.122 33.232' data-name='Path 279'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: calc( var(--toggle-size) * .75 );
+    cursor: pointer;
+    transform-origin: 50% 50%;
+    margin-top: var(--card-text-spacing);
+  }
+  .founder-prev {
+    transform: scaleX(-1);
+  }
+  
+  .content-filter {
+    & a {
+      color: var(--wp--preset--color--peak-pink);
+      border: 2px solid;
+      border-radius: 2em;
+      padding: 0.5em 2.5em 0.5em 1em;
+      display: block;
+      margin-top: 0.5em;
+      position: relative;
+  
+      &:after {
+        content: '';
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34.414 34.645'%3E%3Cg fill='none' stroke='%23ff00ff' stroke-linecap='round' stroke-width='2' data-name='Group 575'%3E%3Cpath d='M1 18.528h31.559' data-name='Line 115'/%3E%3Cpath d='M17.122 1.413 33 18.626 17.122 33.232' data-name='Path 279'/%3E%3C/g%3E%3C/svg%3E");
+        background-size: 75%;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        display: inline-block;
+        width: 2em;
+        height: 100%;
+        position: absolute;
+        right: 0.25em;
+        top: 0;
+        bottom: 0;
+        transition: all 0.2s ease-in-out;
+      }
+      &.active {
+        background-color: var(--wp--preset--color--peak-pink);
+        border-color: var(--wp--preset--color--peak-pink);
+        color: #FFF;
+      }
+      &.active:after {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34.414 34.645'%3E%3Cg fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-width='2' data-name='Group 575'%3E%3Cpath d='M1 18.528h31.559' data-name='Line 115'/%3E%3Cpath d='M17.122 1.413 33 18.626 17.122 33.232' data-name='Path 279'/%3E%3C/g%3E%3C/svg%3E");
+      }
+    }
+  }
+  @include tablet-up {
+    .content-filter {
+      flex-direction: row;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25em;
+  
+      & a {
+        flex: 0 0 calc(33.33333% - .83333em);
+        box-sizing: border-box;
+  
+        
+     } 
+    }
+  }
+}
+
+.single-founders {
+
+  & .founder-block {
+    min-height: calc(32vw + 200px);
+  }
+
+}
