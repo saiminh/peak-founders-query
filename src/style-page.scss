@@ -34,6 +34,9 @@
   @media screen and (max-width: 600px) {
     --card-photo-height: 62vw;
   }
+  span:empty {
+    display: none!important;
+  }
   & a {
     text-decoration: none;
     color: inherit;
@@ -104,7 +107,7 @@
   .founders .wp-block-post-title {
     display: none;
   }
-  .founder-block .founder-coin {
+  & .founder-block .founder-coin {
     grid-column: 1 / span 1;
     grid-row: 3 / span 1;
     margin: 0;
@@ -113,11 +116,14 @@
     & img {
       width: auto;
       height: 100%;
-      filter: invert(100%);
+      filter: invert(0%);
       transition: filter .2s ease-in-out;
     }
   }
-  .founder-full-popup .founder-block .founder-coin img {
+  &:not(.single-founders) .founder-block .founder-coin {
+    filter: invert(100%);
+  }
+  & .founder-full-popup .founder-block .founder-coin img {
     filter: invert(0%);
   }
   @include with-fine-pointer {
@@ -416,8 +422,24 @@
 
 .single-founders {
 
+  & main:after {
+    content: none;
+  }
+  & main .wp-block-post-title {
+    // border-top: 1px solid;
+    // border-bottom: 1px solid;
+    // padding-top: 0.2em;
+    // padding-bottom: 0.125em;
+    // max-width: var(--wp--style--global--wide-size);
+    // font-size: var(--wp--preset--font-size--xxx-large);
+    display: none;
+  }
   & .founder-block {
     min-height: calc(32vw + 200px);
+    max-width: var(--wp--style--global--wide-size);
   }
-
+  & .founder-block .card-title::before,
+  & .founder-block .card-full-content-title::before {
+    content: none;
+  }
 }

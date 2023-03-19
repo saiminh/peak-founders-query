@@ -36,7 +36,7 @@ add_action( 'enqueue_block_editor_assets', 'enqueue_foundersquery_admin_assets' 
 function enqueue_foundersquery_frontend_assets() {
 
   global $post;
-  if ( is_admin() || $post && strpos( $post->post_content, 'peak-founders-query-loop' ) !== false) {
+  if ( is_admin() || $post && strpos( $post->post_content, 'peak-founders-query-loop' ) !== false || $post && strpos( $post->post_content, 'founder-block' ) !== false) {
     // Enqueue frontend block script
     wp_enqueue_style(
         'peak-founders-query-style',
