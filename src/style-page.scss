@@ -123,6 +123,9 @@
   &:not(.single-founders) .founder-block .founder-coin {
     filter: invert(100%);
   }
+  &:not(.single-founders) .founder-full-popup .founder-block .founder-coin {
+    filter: invert(0%);
+  }
   & .founder-full-popup .founder-block .founder-coin img {
     filter: invert(0%);
   }
