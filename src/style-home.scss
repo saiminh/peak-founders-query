@@ -61,7 +61,8 @@
       border-bottom: 1px solid;
       padding-bottom: .25em;
     }
-    & > .card-full-content-title + p {
+    & > .card-full-content-title + p,
+    & > .card-subtitle + p {
       display: block;
       
     }
