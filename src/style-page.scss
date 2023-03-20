@@ -131,7 +131,7 @@
   }
   @include with-fine-pointer {
     .founder-block:hover .founder-coin img {
-      filter: invert(0%);
+      filter: invert(100%);
     }
   }
   .founder-block .founder-photograph {
