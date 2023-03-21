@@ -1,14 +1,4 @@
-/**
- * The following styles get applied inside the editor only.
- *
- * Replace them with your own styles or remove the file completely.
- */
-
-// When editing the query loop (exclude single founder posts, only show 3 posts) 
 .peak-founders-query-loop {
-  // & > ul > li:not(:first-child, :nth-child(2), :nth-child(3)){
-  //   display: none;
-  // }
   & .card-full-content-links.is-layout-flex {
     display: none;
   }
@@ -68,51 +58,80 @@
 
 
 // When editing a single founder post (exclude the query loop)
+
+@mixin label($name) {
+  &::before {
+    content: $name;
+    background-color: #000;
+    color: #fff;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    display: inline-block;
+    position: relative;
+  }
+}
+
 body.post-type-founders {
+
+  .founder-block {
+    padding: 1em;
+  }
 
   .founder-block > :not(.founder-coin, .founder-toggle, .founder-photograph, .card-title, .card-full-content-title, .wp-block-group__inner-container), 
   .founder-block > .wp-block-group__inner-container > :not(.founder-coin, .founder-toggle, .founder-photograph, .card-title, .card-full-content-title), 
   .founder-block,
   .founder-block > .wp-block-group__inner-container {
-   display: block!important;
+    display: block!important;
  
-   & .is-layout-flex {
-     display: flex!important;
-   }
- }
+    & .is-layout-flex {
+      display: flex!important;
+    }
+  }
  
- .card-full-content-link-title {
-   font-size: var(--wp--preset--font-size--medium)!important;
-   font-weight: 400!important;
- 
-   & + p, & + p ~ p {
-     margin-top: 0.5em;
-   }
- }
- .founder-block:hover {
-   background-color: inherit !important;
-   color: inherit !important;
-   border-radius: 0 !important;
- }
- .founder-block:hover > .wp-block-group__inner-container {
-   background-color: inherit;
-   border-radius: 0;
- }
- .founder-block .founder-coin {
-   float: left;
-   width: 50%;
- }
- .founder-block .founder-photograph {
-   width: 50%;
-   float: left;
-   & + * {
-     clear: both;
-   }
- }
- .founder-block .founder-coin img {
-   filter: none!important;
- }
- .founder-block .card-title::before, .founder-block .card-full-content-title::before, .founder-block .founder-coin::before {
-   content: none!important;
- }
+  .card-full-content-link-title {
+    font-size: var(--wp--preset--font-size--medium)!important;
+    font-weight: 400!important;
+
+    & + p, & + p ~ p {
+      margin-top: 0.5em;
+    }
+  }
+  .founder-block:hover {
+    background-color: inherit !important;
+    color: inherit !important;
+    border-radius: 0 !important;
+  }
+  .founder-block:hover > .wp-block-group__inner-container {
+    background-color: inherit;
+    border-radius: 0;
+  }
+  .founder-block .founder-coin,
+  .founder-block .founder-photograph {
+    float: left;
+    width: 50%;
+    max-width: 300px;
+    vertical-align: text-top;
+  }
+  .founder-block .founder-coin {
+    margin-right: 20px;
+
+    & > .components-resizable-box__container {
+      @include label('Founder Logo');
+    }
+  }
+  .founder-block .founder-photograph {
+    margin-top: 0;
+    @include label('Founder Photograph');
+
+    & + * {
+      clear: both;
+    }
+  }
+  .founder-block .founder-coin img {
+    filter: none!important;
+  }
+  .founder-block .card-title::before, .founder-block .card-full-content-title::before, .founder-block .founder-coin::before {
+    content: none!important;
+  }
 }
