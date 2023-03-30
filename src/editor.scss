@@ -134,4 +134,8 @@ body.post-type-founders {
   .founder-block .card-title::before, .founder-block .card-full-content-title::before, .founder-block .founder-coin::before {
     content: none!important;
   }
+  .founder-block p strong {
+    font-size: var(--wp--preset--font-size--large);
+    font-weight: 500;
+  }
 }
