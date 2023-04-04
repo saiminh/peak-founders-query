@@ -1,3 +1,5 @@
+let homeSlideShowIsPlaying = false;
+
 document.addEventListener('DOMContentLoaded', () => {
   if ( document.querySelector('.peak-founders-query-loop') ) {
     loadFounders();
@@ -10,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if ( document.querySelector('.peak-founders-query-loop-home') ) {
     initHomeFounders();
     initSlideShow();
+    observer.observe(document.querySelector('.peak-founders-query-loop-home'));
   }
 
 });
@@ -28,6 +31,19 @@ const initHomeFounders = function() {
       }
     });
 }
+
+let callback = (entries, observer) => {
+  entries.forEach((entry) => {
+    entry.isIntersecting ? homeSlideShowIsPlaying = true : homeSlideShowIsPlaying = false;
+  });
+};
+
+let observer = new IntersectionObserver( callback , {
+  rootMargin: '0px',
+  threshold: 1
+})
+
+
 
 const initSlideShow = function() {
 
@@ -64,8 +80,10 @@ const initSlideShow = function() {
   }
   
   let theInterval = setInterval(() => {
-    slideIndex++;
-    showSlides(slideIndex);
+    if (homeSlideShowIsPlaying) {
+      slideIndex++;
+      showSlides(slideIndex);
+    }
   }, 3000);
 
   document.querySelectorAll('.home-founder-link').forEach((link) => {
