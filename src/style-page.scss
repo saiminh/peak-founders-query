@@ -365,7 +365,7 @@
   .founder-next, .founder-prev {
     width: calc( var(--toggle-size) * .75 );
     height: calc( var(--toggle-size) * .75 );
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34.414 34.645'%3E%3Cg fill='none' stroke='%23ff00ff' stroke-linecap='round' stroke-width='2' data-name='Group 575'%3E%3Cpath d='M1 18.528h31.559' data-name='Line 115'/%3E%3Cpath d='M17.122 1.413 33 18.626 17.122 33.232' data-name='Path 279'/%3E%3C/g%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34.414 34.645'%3E%3Cg fill='none' stroke='%23ff00ff' stroke-linecap='round' stroke-width='1' data-name='Group 575'%3E%3Cpath d='M1 18.528h31.559' data-name='Line 115'/%3E%3Cpath d='M17.122 1.413 33 18.626 17.122 33.232' data-name='Path 279'/%3E%3C/g%3E%3C/svg%3E");
     background-size: calc( var(--toggle-size) * .75 );
     cursor: pointer;
     transform-origin: 50% 50%;
